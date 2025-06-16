@@ -5,7 +5,7 @@ import { routes } from './routes';
 dotenv.config();
 
 const app: Application = express();
-const port: Number = Number(process.env.PORT) || 3000;
+const port: number = Number(process.env.PORT) || 3000;
 
 routes(app);
 

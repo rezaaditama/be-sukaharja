@@ -1,0 +1,30 @@
+echo "Styling, testing and building your project before committing"
+
+# Check Prettier
+npm run check-format ||
+(
+    echo 'Prettier check failed. run npm run format, add changes and try commit again';
+    false;
+)
+
+# Check Eslint
+npm run check-lint ||
+(
+    echo "Eslint check failed. Make the required changes listen above, add changes and try commit again";
+    false;
+)
+
+# Check tsconfig
+npm run check-types ||
+(
+    echo "Failed type check. Make the changes required above, add changes and try commit again";
+    false;
+)
+
+npm run build ||
+(
+    echo "Your build failed, view the errors above";
+    false;
+)
+
+echo "Success Commite"

@@ -5,25 +5,31 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
+    ignores: [
+      '**/dist/*',
+      '**/node_modules/*',
+      '**/public/*',
+      'eslint.config.mjs',
+    ],
+  },
+  {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    ignores: ['**/dist/*', '**/node_modules/*', '**/public/*'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
       js,
     },
-    extends: ['js/recommended'],
-  },
-  {
-    files: ['**/*.js'],
+    extends: ['js/recommended', ...tseslint.configs.recommended],
     languageOptions: {
       parser: tseslint.parser,
-      parserOptions: { project: ['./tscofig.json'] },
-      sourceType: 'script',
+      parserOptions: { project: ['./tsconfig.json'] },
+      sourceType: 'module',
+      globals: globals.node,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
     },
   },
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    languageOptions: { globals: globals.node },
-  },
-  ...tseslint.configs.recommended,
 ]);
