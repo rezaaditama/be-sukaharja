@@ -10,6 +10,7 @@ export default defineConfig([
       '**/node_modules/*',
       '**/public/*',
       'eslint.config.mjs',
+      '**/tsconfig.json',
     ],
   },
   {
