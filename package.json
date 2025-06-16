@@ -5,7 +5,8 @@
   "scripts": {
     "start": "npx tsc -w",
     "dev": "npx nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "Reza Aditama",
@@ -16,10 +17,22 @@
     "express": "^5.1.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.29.0",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
+    "eslint": "^9.29.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "globals": "^16.2.0",
     "nodemon": "^3.1.10",
+    "prettier": "3.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1"
   }
 }
