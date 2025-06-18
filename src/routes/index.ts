@@ -1,7 +1,7 @@
 import { Application, Router } from 'express';
 import { BungaRouter } from './bunga';
 
-const _routes: Array<[string, Router]> = [['/get-bunga', BungaRouter]];
+const _routes: Array<[string, Router]> = [['/bunga', BungaRouter]];
 
 export const routes = (app: Application) => {
   _routes.forEach((route) => {
