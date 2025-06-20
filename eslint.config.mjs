@@ -31,6 +31,7 @@ export default defineConfig([
         'warn',
         { argsIgnorePattern: '^_' },
       ],
+      '@typescript-eslint/strict-boolean-expressions': 'off',
     },
   },
 ]);

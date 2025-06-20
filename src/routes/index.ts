@@ -1,5 +1,5 @@
 import { Application, Router } from 'express';
-import { BungaRouter } from './bunga';
+import { BungaRouter } from './bunga.route';
 
 const _routes: Array<[string, Router]> = [['/bunga', BungaRouter]];
 
