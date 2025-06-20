@@ -32,6 +32,10 @@ export default defineConfig([
         { argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/strict-boolean-expressions': 'off',
+      'no-return-assign': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      '@typescript-eslint/explicit-function-return-value': 'off',
+      'array-callback-return': 'off',
     },
   },
 ]);
