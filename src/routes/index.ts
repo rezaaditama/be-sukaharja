@@ -6,6 +6,6 @@ const _routes: Array<[string, Router]> = [['/bunga', BungaRouter]];
 export const routes = (app: Application) => {
   _routes.forEach((route) => {
     const [url, router] = route;
-    app.use(url, router);
+    app.use(`/api${url}`, router);
   });
 };

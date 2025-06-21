@@ -9,4 +9,5 @@ export const logger = pino({
       ignore: 'pid, hostname',
     },
   },
+  timestamp: pino.stdTimeFunctions.isoTime,
 });
