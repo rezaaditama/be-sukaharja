@@ -1,7 +1,6 @@
 export interface PetaniModel {
-  nik: number;
-  alamat: string;
-  nama: string;
-  status: boolean;
+  nik_petani: number;
+  alamat_petani: string;
+  nama_petani: string;
   nama_bunga: string;
 }

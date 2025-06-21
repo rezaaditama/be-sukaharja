@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { getAllPetani } from '../controllers/petani.controller';
+import {
+  getAllPetaniController,
+  insertPetaniController,
+} from '../controllers/petani.controller';
 
 export const PetaniRouter: Router = Router();
-PetaniRouter.get('/', getAllPetani);
+PetaniRouter.get('/', getAllPetaniController);
+PetaniRouter.post('/post-petani', insertPetaniController);
