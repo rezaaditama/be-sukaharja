@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { logger } from '../utils/logger';
 import {
+  deletePetaniService,
   fetchAllPetaniService,
   insertPetaniService,
   updatePetaniService,
@@ -118,6 +119,52 @@ export const updatePetaniController = async (req: Request, res: Response) => {
       status: false,
       statusCode: 500,
       message: 'Data Petani Gagal Diperbarui',
+      error: error,
+    });
+    return;
+  }
+};
+
+export const deletePetaniController = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      logger.info('ID Harus Berupa Angka');
+      res.status(400).json({
+        status: false,
+        statusCode: 400,
+        message: 'ID Harus Berupa Angka',
+      });
+      return;
+    }
+
+    const affectedRows = await deletePetaniService(id);
+    if (affectedRows === 0) {
+      logger.info('Data Pengaduan Tidak Ditemukan');
+      res.status(404).json({
+        status: false,
+        statusCode: 404,
+        message: `Data Pengaduan Tidak Ditemukan`,
+      });
+      return;
+    }
+    logger.info('Data Pengaduan Berhasil Di Hapus');
+    res.status(200).json({
+      status: true,
+      statusCode: 200,
+      message: 'Data Pengaduan Berhasil Di Hapus',
+    });
+  } catch (error) {
+    logger.error({
+      msg: 'Gagal Menghapus Data Pengaduan',
+      error,
+      endpoint: req.originalUrl,
+      method: req.method,
+    });
+    res.status(500).json({
+      status: false,
+      statusCode: 500,
+      message: 'Data Pengaduan Gagal Dihapus',
       error: error,
     });
     return;

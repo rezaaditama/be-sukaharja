@@ -48,3 +48,14 @@ export const updatePetaniService = async (id: number) => {
     conn.release();
   }
 };
+
+export const deletePetaniService = async (id: number) => {
+  const conn = await dbPool.getConnection();
+  try {
+    const SQLQuery = 'DELETE FROM petani WHERE nik_petani = ?';
+    const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [id]);
+    return results.affectedRows;
+  } catch (error) {
+    conn.release();
+  }
+};
