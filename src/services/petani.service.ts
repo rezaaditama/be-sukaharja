@@ -55,7 +55,7 @@ export const deletePetaniService = async (id: number) => {
     const SQLQuery = 'DELETE FROM petani WHERE nik_petani = ?';
     const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [id]);
     return results.affectedRows;
-  } catch (error) {
+  } finally {
     conn.release();
   }
 };
