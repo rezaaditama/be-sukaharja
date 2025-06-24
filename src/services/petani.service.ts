@@ -37,3 +37,14 @@ export const insertPetaniService = async (data: PetaniModel) => {
     conn.release();
   }
 };
+
+export const updatePetaniService = async (id: number) => {
+  const conn = await dbPool.getConnection();
+  try {
+    const SQLQuery = 'UPDATE petani SET status = ? WHERE nik_petani = ?';
+    const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [true, id]);
+    return results.affectedRows;
+  } finally {
+    conn.release();
+  }
+};

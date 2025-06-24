@@ -3,6 +3,7 @@ import { logger } from '../utils/logger';
 import {
   fetchAllPetaniService,
   insertPetaniService,
+  updatePetaniService,
 } from '../services/petani.service';
 import { createPetaniValidation } from '../validations/petani.validation';
 
@@ -74,5 +75,51 @@ export const insertPetaniController = async (req: Request, res: Response) => {
       message: 'Gagal Menambahkan Data Petani',
       error: error,
     });
+  }
+};
+
+export const updatePetaniController = async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      logger.info('ID Harus Berupa Angka');
+      res.status(400).json({
+        status: false,
+        statusCode: 400,
+        message: 'ID Harus Berupa Angka',
+      });
+      return;
+    }
+
+    const affectedRows = await updatePetaniService(id);
+    if (affectedRows === 0) {
+      logger.info('Data Petani Tidak Ditemukan');
+      res.status(404).json({
+        status: false,
+        statusCode: 404,
+        message: `Data Petani Tidak Ditemukan`,
+      });
+      return;
+    }
+    logger.info('Data Petani Telah Di Perbarui');
+    res.status(200).json({
+      status: true,
+      statusCode: 200,
+      message: 'Data Petani Telah Di Perbarui',
+    });
+  } catch (error) {
+    logger.error({
+      msg: 'Gagal Memperbarui Data Petani',
+      error,
+      endpoint: req.originalUrl,
+      method: req.method,
+    });
+    res.status(500).json({
+      status: false,
+      statusCode: 500,
+      message: 'Data Petani Gagal Diperbarui',
+      error: error,
+    });
+    return;
   }
 };

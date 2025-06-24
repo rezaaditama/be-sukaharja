@@ -34,3 +34,15 @@ export const insertPengaduanService = async (data: PengaduanModel) => {
     conn.release();
   }
 };
+
+export const updatePengaduanService = async (id: number) => {
+  const conn = await dbPool.getConnection();
+  try {
+    const SQLQuery =
+      'UPDATE pengaduan SET status_pengaduan = ? WHERE pengaduan_id = ?';
+    const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [true, id]);
+    return results.affectedRows;
+  } finally {
+    conn.release();
+  }
+};
