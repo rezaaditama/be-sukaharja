@@ -59,3 +59,23 @@ export const deletePetaniService = async (id: number) => {
     conn.release();
   }
 };
+
+export const updatePetaniDataService = async (
+  nik_petani: number,
+  data: Omit<PetaniModel, 'nik_petani'>
+) => {
+  const conn = await dbPool.getConnection();
+  try {
+    const SQLQuery =
+      'UPDATE petani SET nama_petani = ?, alamat_petani = ?, nama_bunga = ? WHERE nik_petani = ?';
+    const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [
+      data.nama_petani,
+      data.alamat_petani,
+      data.nama_bunga,
+      nik_petani,
+    ]);
+    return results.affectedRows;
+  } finally {
+    conn.release();
+  }
+};

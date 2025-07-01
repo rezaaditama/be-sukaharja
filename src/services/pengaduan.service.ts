@@ -5,7 +5,7 @@ import { ResultSetHeader } from 'mysql2';
 
 export const fetchAllPengaduanService = async () => {
   const SQLQuery =
-    'SELECT pengaduan_id, jenis_pengaduan, detail_pengaduan, waktu_pengaduan, status_pengaduan FROM pengaduan';
+    'SELECT pengaduan_id, jenis_pengaduan, detail_pengaduan, waktu_pengaduan, status_pengaduan, kategori_pengaduan FROM pengaduan';
 
   try {
     const [results] = await dbPool.execute(SQLQuery);
@@ -24,10 +24,11 @@ export const insertPengaduanService = async (data: PengaduanModel) => {
   const conn = await dbPool.getConnection();
   try {
     const SQLQuery =
-      'INSERT INTO pengaduan (jenis_pengaduan, detail_pengaduan) VALUES (?, ?)';
+      'INSERT INTO pengaduan (jenis_pengaduan, detail_pengaduan, kategori_pengaduan) VALUES (?, ?, ?)';
     const [results] = await conn.execute<ResultSetHeader>(SQLQuery, [
       data.jenis_pengaduan,
       data.detail_pengaduan,
+      data.kategori_pengaduan,
     ]);
     return results.insertId;
   } finally {

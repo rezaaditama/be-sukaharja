@@ -4,9 +4,14 @@ import {
   deletePetaniService,
   fetchAllPetaniService,
   insertPetaniService,
+  updatePetaniDataService,
   updatePetaniService,
 } from '../services/petani.service';
-import { createPetaniValidation } from '../validations/petani.validation';
+import {
+  createPetaniValidation,
+  PetaniUpdateDTO,
+  updatePetaniValidation,
+} from '../validations/petani.validation';
 
 export const getAllPetaniController = async (req: Request, res: Response) => {
   try {
@@ -168,5 +173,63 @@ export const deletePetaniController = async (req: Request, res: Response) => {
       error: error,
     });
     return;
+  }
+};
+
+export const updateDataPetaniController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const results = updatePetaniValidation.safeParse(req.body);
+    const nik_petani = parseInt(req.params.nik_petani);
+
+    if (isNaN(nik_petani)) {
+      logger.info('NIK Harus Berupa Angka');
+      res.status(400).json({
+        status: false,
+        statusCode: 400,
+        message: 'NIK Harus Berupa Angka ',
+      });
+      return;
+    }
+
+    if (!results.success) {
+      logger.info('Data Tidak Sesuai');
+      res.status(400).json({
+        status: false,
+        statusCode: 400,
+        message: 'Data Tidak Sesuai ',
+      });
+      return;
+    }
+
+    const dataToUpdate: PetaniUpdateDTO = results.data;
+    const affectedRows = await updatePetaniDataService(
+      nik_petani,
+      dataToUpdate
+    );
+
+    if (affectedRows === 0) {
+      res.status(404).json({
+        status: false,
+        statusCode: 404,
+        message: 'Data Petani Tidak Ditemukan',
+      });
+      return;
+    }
+
+    res.status(200).json({
+      status: true,
+      statusCode: 200,
+      message: 'Data Petani Telah Diperbarui',
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      statusCode: 500,
+      message: 'Data Petani Gagal Diperbarui',
+      error: error,
+    });
   }
 };
